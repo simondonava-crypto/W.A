@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72" role="img" aria-label="Le Stère Français">
+  <g transform="translate(4 4)">
+    <rect width="64" height="64" rx="14" fill="#2a201a"/>
+    <path d="M32 6c5 5 8.5 10 7 16-1.4-2.4-3.4-3.2-5-2.8 1 3-0.6 5.6-3 6.4-3.4-1.6-4.6-5.4-2.6-9.2 0.8 1.6 2 2.2 3 1.8-2-4-1.2-8.4 0.6-12.2z" fill="#e5672f"/>
+    <path d="M32.4 15c2.6 2.6 3.4 5.4 2.2 7.6-1.2-1.2-2.6-1.4-3.6-0.6-1.4-2-0.8-4.6 1.4-7z" fill="#f2a541"/>
+    <g fill="#e3b77f" stroke="#a8703f" stroke-width="2">
+      <circle cx="19" cy="35" r="7"/><circle cx="32" cy="35" r="7"/><circle cx="45" cy="35" r="7"/>
+      <circle cx="19" cy="49" r="7"/><circle cx="32" cy="49" r="7"/><circle cx="45" cy="49" r="7"/>
+    </g>
+    <g fill="none" stroke="#a8703f" stroke-width="1.2">
+      <circle cx="19" cy="35" r="3"/><circle cx="32" cy="35" r="3"/><circle cx="45" cy="35" r="3"/>
+      <circle cx="19" cy="49" r="3"/><circle cx="32" cy="49" r="3"/><circle cx="45" cy="49" r="3"/>
+    </g>
+    <rect x="17" y="58" width="10" height="2.5" rx="1" fill="#2f5bb3"/>
+    <rect x="27" y="58" width="10" height="2.5" fill="#f4efe4"/>
+    <rect x="37" y="58" width="10" height="2.5" rx="1" fill="#d23b3b"/>
+  </g>
+  <text x="84" y="40" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="700" fill="#221b16">Le Stère</text>
+  <text x="86" y="60" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="5.2" fill="#d0552a">FRANÇAIS</text>
+</svg>

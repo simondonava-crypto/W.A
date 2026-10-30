@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panier – Le Stère Français</title>
+  <meta name="description" content="Votre panier Le Stère Français : envoyez votre commande sur WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-mark.svg">
+</head>
+<body data-page="cart">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">Panier</span>
+        <h1>Votre commande</h1>
+        <p>Vérifiez vos produits, ajoutez vos coordonnées et envoyez la commande sur WhatsApp. Aucun paiement n'est demandé en ligne.</p>
+      </div>
+    </section>
+    <div class="container cart-layout">
+      <div id="cart-list"></div>
+      <aside class="summary" id="cart-summary" hidden>
+        <div class="summary-row"><span>Total estimé</span><strong id="total">0 €</strong></div>
+        <p class="note" style="margin-top:0">Hors frais de livraison, confirmés sur WhatsApp selon votre code postal.</p>
+        <form id="order-form">
+          <div class="form-grid">
+            <div class="full"><label for="f-name">Nom et prénom</label><input class="input" id="f-name" name="name" autocomplete="name" required></div>
+            <div class="full"><label for="f-phone">Téléphone</label><input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="full"><label for="f-address">Adresse de livraison</label><input class="input" id="f-address" name="address" autocomplete="street-address"></div>
+            <div><label for="f-zip">Code postal</label><input class="input" id="f-zip" name="zip" autocomplete="postal-code" inputmode="numeric" required></div>
+            <div><label for="f-city">Ville</label><input class="input" id="f-city" name="city" autocomplete="address-level2"></div>
+            <div class="full"><label for="f-note">Remarque (accès, créneau…)</label><textarea id="f-note" name="note" rows="3"></textarea></div>
+          </div>
+          <button class="btn btn-wa btn-block" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Envoyer la commande sur WhatsApp</button>
+        </form>
+        <button class="text-btn" id="clear-cart" type="button">Vider le panier</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

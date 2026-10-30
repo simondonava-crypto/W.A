@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boutique – Le Stère Français</title>
+  <meta name="description" content="Bois de chauffage, granulés, bois densifié et allumage. Commandez sur WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-mark.svg">
+</head>
+<body data-page="shop">
+  <header id="site-header"></header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">Boutique</span>
+        <h1 id="shop-title">Tous nos produits</h1>
+        <p>Prix TTC. Les frais de livraison sont calculés selon votre code postal et confirmés sur WhatsApp.</p>
+      </div>
+    </section>
+    <section class="container" style="padding-bottom:72px">
+      <div class="toolbar">
+        <div class="chips" id="chips"></div>
+        <div class="filters">
+          <input class="input" id="search" type="search" placeholder="Rechercher…" aria-label="Rechercher un produit">
+          <select id="sort" aria-label="Trier">
+            <option value="default">Tri par défaut</option>
+            <option value="asc">Prix croissant</option>
+            <option value="desc">Prix décroissant</option>
+          </select>
+        </div>
+      </div>
+      <p class="count" id="count"></p>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
