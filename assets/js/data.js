@@ -26,7 +26,7 @@ const CATEGORIES = [
     imgs: ["assets/img/photos/cat-accessoires.jpg"] }
 ];
 
-/* Prix TTC en euros, hors livraison. featured : affiché sur la page d'accueil.
+/* Prix TTC en euros, livraison gratuite incluse. featured : affiché sur la page d'accueil.
    img (facultatif) : photo propre au produit, ex. img: "assets/img/photos/ma-photo.jpg".
    Sans img, une photo de la catégorie est utilisée. */
 const PRODUCTS = [

@@ -83,7 +83,7 @@ function orderMessage(items, client = {}) {
     return `• ${qty} × ${p.name} (${p.unit}) – ${fmt(p.price * qty)}`;
   });
   const total = items.reduce((t, { id, qty }) => t + findProduct(id).price * qty, 0);
-  let msg = `Bonjour ${CONFIG.brand}, je souhaite commander :\n\n${lines.join("\n")}\n\nTotal estimé : ${fmt(total)} (hors livraison)`;
+  let msg = `Bonjour ${CONFIG.brand}, je souhaite commander :\n\n${lines.join("\n")}\n\nTotal : ${fmt(total)} TTC (livraison gratuite)`;
   const info = [
     client.name && `Nom : ${client.name}`,
     client.phone && `Téléphone : ${client.phone}`,
@@ -92,7 +92,7 @@ function orderMessage(items, client = {}) {
     client.note && `Remarque : ${client.note}`
   ].filter(Boolean);
   if (info.length) msg += `\n\n${info.join("\n")}`;
-  return msg + "\n\nMerci de me confirmer la disponibilité et les frais de livraison.";
+  return msg + "\n\nMerci de me confirmer la disponibilité, le délai de livraison et les modalités de paiement.";
 }
 
 function orderNow(id, qty = 1) {
@@ -123,7 +123,7 @@ function renderChrome() {
   const links = [["index.html", "Accueil", "home"], ["boutique.html", "Boutique", "shop"], ["livraison.html", "Livraison", "livraison"], ["faq.html", "FAQ", "faq"], ["contact.html", "Contact", "contact"]];
   const header = $("#site-header");
   if (header) header.innerHTML = `
-    <div class="topbar">Commande simple et rapide sur WhatsApp · ${esc(CONFIG.phoneDisplay)}</div>
+    <div class="topbar">🚚 Livraison gratuite · Paiement complet avant livraison · Commande sur WhatsApp</div>
     <div class="container nav">
       <a href="index.html" class="logo"><img src="assets/img/logo-mark.svg" alt="" width="40" height="40"><span>${esc(CONFIG.brand)}</span></a>
       <nav class="nav-links" id="nav-links">
@@ -160,13 +160,7 @@ function renderChrome() {
     </div>
     <div class="container footer-bottom">© ${new Date().getFullYear()} ${esc(CONFIG.brand)} · Tous droits réservés</div>`;
 
-  const fab = document.createElement("a");
-  fab.className = "wa-fab";
-  fab.href = waLink(`Bonjour ${CONFIG.brand}, j'ai une question.`);
-  fab.target = "_blank"; fab.rel = "noopener";
-  fab.setAttribute("aria-label", "Nous écrire sur WhatsApp");
-  fab.innerHTML = ICON.wa;
-  document.body.appendChild(fab);
+  initChat();
 
   const menuBtn = $(".menu-btn");
   menuBtn?.addEventListener("click", () => {
@@ -176,6 +170,69 @@ function renderChrome() {
   $$("[data-wa]").forEach(a => { a.href = waLink(a.dataset.wa || `Bonjour ${CONFIG.brand}, j'ai une question.`); a.target = "_blank"; a.rel = "noopener"; });
   $$("[data-phone]").forEach(el => el.textContent = CONFIG.phoneDisplay);
   updateCartCount();
+}
+
+/* ---------- Bulle de discussion WhatsApp ---------- */
+const CHAT_KEY = "stere_francais_chat_closed";
+function initChat() {
+  const fab = document.createElement("button");
+  fab.className = "wa-fab";
+  fab.type = "button";
+  fab.setAttribute("aria-label", "Discuter avec nous sur WhatsApp");
+  fab.setAttribute("aria-expanded", "false");
+  fab.innerHTML = `${ICON.wa}<span class="wa-dot" hidden>1</span>`;
+
+  const chat = document.createElement("div");
+  chat.className = "wa-chat";
+  chat.setAttribute("role", "dialog");
+  chat.setAttribute("aria-label", "Discussion WhatsApp");
+  chat.hidden = true;
+  chat.innerHTML = `
+    <div class="wa-chat-head">
+      <img src="assets/img/logo-mark.svg" alt="" width="40" height="40">
+      <div><strong>${esc(CONFIG.brand)}</strong><span><i></i>En ligne · répond en quelques minutes</span></div>
+      <button class="wa-chat-close" type="button" aria-label="Fermer">×</button>
+    </div>
+    <div class="wa-chat-body">
+      <div class="wa-typing" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="wa-msg" hidden>
+        <p>Salut 👋 Vous êtes nouveau ici ?</p>
+        <p>Une question sur nos bûches, nos granulés ou une commande ? Cliquez ci-dessous, on vous répond directement sur WhatsApp !</p>
+        <p class="wa-msg-info">🚚 Livraison gratuite · 💳 Paiement complet avant livraison</p>
+        <time>${new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}</time>
+      </div>
+    </div>
+    <a class="btn btn-wa btn-block wa-chat-cta" href="${waLink(`Bonjour ${CONFIG.brand}, je viens de votre site et j'ai une question.`)}" target="_blank" rel="noopener">${ICON.wa}Discuter sur WhatsApp</a>`;
+  document.body.append(chat, fab);
+
+  const dot = $(".wa-dot", fab), msg = $(".wa-msg", chat), typing = $(".wa-typing", chat);
+  let typed = false;
+  function open() {
+    chat.hidden = false;
+    requestAnimationFrame(() => chat.classList.add("show"));
+    fab.setAttribute("aria-expanded", "true");
+    dot.hidden = true;
+    if (!typed) {
+      typed = true;
+      setTimeout(() => { typing.hidden = true; msg.hidden = false; }, 1300);
+    }
+  }
+  function close() {
+    chat.classList.remove("show");
+    fab.setAttribute("aria-expanded", "false");
+    setTimeout(() => { chat.hidden = true; }, 250);
+    try { sessionStorage.setItem(CHAT_KEY, "1"); } catch (e) { /* stockage indisponible */ }
+  }
+  fab.addEventListener("click", () => chat.classList.contains("show") ? close() : open());
+  $(".wa-chat-close", chat).addEventListener("click", close);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && chat.classList.contains("show")) close(); });
+
+  let closedBefore = false;
+  try { closedBefore = sessionStorage.getItem(CHAT_KEY) === "1"; } catch (e) { /* stockage indisponible */ }
+  if (!closedBefore) {
+    setTimeout(() => { dot.hidden = false; }, 2000);
+    setTimeout(() => { if (!chat.classList.contains("show")) open(); }, 4000);
+  }
 }
 
 /* ---------- Cartes produit ---------- */
@@ -267,7 +324,7 @@ const pages = {
             <button class="btn btn-outline" id="add-btn">${ICON.cart}Ajouter au panier</button>
           </div>
           <button class="btn btn-wa btn-block" id="order-btn">${ICON.wa}Commander sur WhatsApp</button>
-          <p class="note">Les frais de livraison dépendent de votre code postal et vous sont confirmés sur WhatsApp avant toute commande.</p>
+          <p class="note">Livraison gratuite à domicile. Paiement complet de la commande avant la livraison, après confirmation sur WhatsApp.</p>
         </div>
       </div>
       <section class="section-sm"><h2>Vous aimerez aussi</h2><div class="grid">${PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4).map(productCard).join("")}</div></section>`;

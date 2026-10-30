@@ -268,3 +268,34 @@ th { background: var(--cream); font-size: .9rem; }
 .hero-art img { position: relative; width: 100%; height: 100%; object-fit: cover; border-radius: 22px; box-shadow: 0 20px 60px rgba(0, 0, 0, .5); }
 .credits td, .credits th { font-size: .82rem; vertical-align: top; }
 .credits a { word-break: break-all; }
+
+/* ---------- Bulle de discussion WhatsApp ---------- */
+.wa-fab { border: 0; cursor: pointer; }
+.wa-dot { position: absolute; top: -2px; right: -2px; width: 22px; height: 22px; border-radius: 50%; background: #e53935; color: #fff; font: 700 .75rem/22px var(--font-body); text-align: center; box-shadow: 0 0 0 3px var(--bg); animation: pop .3s ease-out; }
+.wa-dot[hidden] { display: none; }
+.wa-chat { position: fixed; right: 20px; bottom: 92px; z-index: 61; width: min(340px, calc(100vw - 32px)); background: #efeae2; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px rgba(0, 0, 0, .25); opacity: 0; transform: translateY(14px) scale(.97); transform-origin: bottom right; transition: opacity .25s, transform .25s; }
+.wa-chat.show { opacity: 1; transform: none; }
+.wa-chat[hidden] { display: none; }
+.wa-chat-head { display: flex; align-items: center; gap: 12px; background: #075e54; color: #fff; padding: 14px 16px; }
+.wa-chat-head img { width: 40px; height: 40px; border-radius: 50%; }
+.wa-chat-head div { flex: 1; display: flex; flex-direction: column; line-height: 1.3; }
+.wa-chat-head span { font-size: .78rem; opacity: .85; display: flex; align-items: center; gap: 6px; }
+.wa-chat-head i { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; display: inline-block; }
+.wa-chat-close { background: none; border: 0; color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; opacity: .8; padding: 4px; }
+.wa-chat-close:hover { opacity: 1; }
+.wa-chat-body { padding: 18px 16px 8px; min-height: 120px; }
+.wa-msg { position: relative; background: #fff; border-radius: 0 12px 12px 12px; padding: 10px 12px 18px; font-size: .92rem; color: #111; box-shadow: 0 1px 1px rgba(0, 0, 0, .08); animation: pop .25s ease-out; }
+.wa-msg::before { content: ""; position: absolute; left: -8px; top: 0; border: 8px solid transparent; border-top-color: #fff; border-right-color: #fff; border-width: 0 8px 10px 0; }
+.wa-msg p { margin: 0 0 6px; }
+.wa-msg .wa-msg-info { font-size: .82rem; color: #075e54; font-weight: 600; margin-bottom: 0; }
+.wa-msg time { position: absolute; right: 10px; bottom: 4px; font-size: .7rem; color: #8a8a8a; }
+.wa-typing { display: inline-flex; gap: 4px; background: #fff; border-radius: 12px; padding: 12px 14px; }
+.wa-typing[hidden], .wa-msg[hidden] { display: none; }
+.wa-typing span { width: 7px; height: 7px; border-radius: 50%; background: #9aa0a6; animation: blink 1s infinite; }
+.wa-typing span:nth-child(2) { animation-delay: .15s; }
+.wa-typing span:nth-child(3) { animation-delay: .3s; }
+.wa-chat-cta { margin: 8px 16px 16px; width: calc(100% - 32px); }
+@keyframes blink { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+@keyframes pop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+@media (max-width: 520px) { .wa-chat { right: 16px; bottom: 88px; } }
+@media (prefers-reduced-motion: reduce) { .wa-chat, .wa-msg, .wa-dot, .wa-typing span { animation: none; transition: none; } }
